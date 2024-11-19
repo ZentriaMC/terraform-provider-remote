@@ -32,6 +32,11 @@ var connectionSchemaResource = &schema.Resource{
 			Optional:    true,
 			Description: "The maximum amount of time, in milliseconds, for the TCP connection to establish. Timeout of zero means no timeout.",
 		},
+		"retry_timeout": {
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "The maximum amount of time, in duration string, for retrying the operation. Timeout evaluating to zero means no retries will be attempted.",
+		},
 		"user": {
 			Type:        schema.TypeString,
 			Required:    true,
@@ -167,6 +172,15 @@ func ConnectionFromResourceData(ctx context.Context, d *schema.ResourceData) (st
 		}
 
 		clientConfig.Timeout = time.Duration(timeout) * time.Millisecond
+	}
+
+	if retryTimeout, ok, err := GetOk[string](d, "conn.0.retry_timeout"); ok {
+		if err != nil {
+			return "", nil, err
+		}
+
+		// TODO
+		_ = retryTimeout
 	}
 
 	return fmt.Sprintf("%s:%d", host, port), &clientConfig, nil

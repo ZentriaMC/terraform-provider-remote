@@ -71,5 +71,6 @@ Optional:
 - `private_key` (String, Sensitive) The private key used to login to the remote host.
 - `private_key_env_var` (String) The name of the local environment variable containing the private key used to login to the remote host.
 - `private_key_path` (String) The local path to the private key used to login to the remote host.
+- `retry_timeout` (String) The maximum amount of time, in duration string, for retrying the operation. Timeout evaluating to zero means no retries will be attempted.
 - `sudo` (Boolean) Use sudo to gain access to file. Defaults to `false`.
 - `timeout` (Number) The maximum amount of time, in milliseconds, for the TCP connection to establish. Timeout of zero means no timeout.
